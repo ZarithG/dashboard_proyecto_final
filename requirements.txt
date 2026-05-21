@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────
+# Predictor de Renovación de Pólizas — Requirements
+# Modelo: Random Forest + SMOTETomek + Umbral óptimo por F1
+# ─────────────────────────────────────────────────────────────
+
+# Dashboard web
+streamlit>=1.35.0
+
+# Manipulación de datos
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Visualizaciones
+plotly>=5.22.0
+
+# Modelo y serialización
+scikit-learn>=1.4.0
+joblib>=1.4.0
+
+# Balanceo de clases (SMOTETomek)
+imbalanced-learn>=0.12.0
+
+# ─────────────────────────────────────────────────────────────
+# Librerías de la stdlib incluidas (no requieren instalación):
+#   datetime, io, os
+# ─────────────────────────────────────────────────────────────
