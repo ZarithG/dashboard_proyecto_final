@@ -791,8 +791,8 @@ else:
                 mapa = {'Alto': 'color: #ef4444', 'Medio': 'color: #f59e0b', 'Bajo': 'color: #10b981'}
                 return mapa.get(val, '')
 
-            styled = df_res.style.applymap(color_resultado, subset=['Resultado']) \
-                                  .applymap(color_riesgo, subset=['Riesgo'])
+            styled = df_res.style.map(color_resultado, subset=['Resultado']) \
+                                  .map(color_riesgo, subset=['Riesgo'])
             st.dataframe(styled, use_container_width=True, hide_index=True)
 
             # Descarga
