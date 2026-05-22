@@ -211,7 +211,7 @@ def preprocesar_poliza(datos: dict, bundle: dict) -> np.ndarray:
     ciudad  = datos['Ciudad_y']
 
     fila = {
-        'Total_Prima_Bruta_CLP':   datos['Total_Prima_Bruta_CLP'],
+        'Prima_Neta':              datos['Prima_Neta'],
         'Valor_Cuota':             datos['Valor_Cuota'],
         'Dias_Entre_Aviso_Cierre': datos['Dias_Entre_Aviso_Cierre'],
         'Riesgo_Pais':             datos['Riesgo_Pais'],
@@ -254,7 +254,7 @@ def preprocesar_poliza(datos: dict, bundle: dict) -> np.ndarray:
 def predecir_demo(datos: dict) -> dict:
     """Simula una predicción para demostración visual."""
     np.random.seed(
-        int(datos['Total_Prima_Bruta_CLP'] * 7 +
+        int(datos['Prima_Neta'] * 7 +
             datos['Dias_Entre_Aviso_Cierre'] * 3 +
             datos['Riesgo_Pais'] * 100) % 2**31
     )
@@ -353,7 +353,7 @@ def radar_factores(datos: dict) -> go.Figure:
     """Radar chart con factores normalizados de riesgo."""
     categorias = ['Prima Alta', 'Días Aviso', 'Riesgo País', 'Sin Plan Pago', 'Garantía']
     valores = [
-        min(datos['Total_Prima_Bruta_CLP'] / 500, 1.0),
+        min(datos['Prima_Neta'] / 500, 1.0),
         min(datos['Dias_Entre_Aviso_Cierre'] / 90, 1.0),
         min((datos['Riesgo_Pais'] - 0.8) / 1.5, 1.0),
         1.0 if datos['Sin_Plan_Pago'] else 0.0,
@@ -492,7 +492,7 @@ if modo == "Póliza individual":
 
     if st.button("Predecir Renovación", use_container_width=True):
         datos = {
-            'Total_Prima_Bruta_CLP':   prima,
+            'Prima_Neta':   prima,
             'Valor_Cuota':             cuota,
             'Dias_Entre_Aviso_Cierre': dias,
             'Riesgo_Pais':             riesgo_p,
@@ -629,12 +629,12 @@ else:
 
     # Plantilla CSV
     plantilla_cols = [
-        'Total_Prima_Bruta_CLP','Valor_Cuota','Dias_Entre_Aviso_Cierre','Riesgo_Pais',
+        'Prima_Neta','Valor_Cuota','Dias_Entre_Aviso_Cierre','Riesgo_Pais',
         'Fecha_Aviso','Sin_Plan_Pago','Garantia_Suscripcion',
         'Compania','Evento','Nombre_Ramo','Canal','Ciudad_y','Linea_Negocio','Sucursal'
     ]
     df_plantilla = pd.DataFrame([{
-        'Total_Prima_Bruta_CLP':   116.204,
+        'Prima_Neta':              116.204,
         'Valor_Cuota':             10.0,
         'Dias_Entre_Aviso_Cierre': 30.0,
         'Riesgo_Pais':             1.17114,
@@ -673,7 +673,7 @@ else:
 
             for i, row in df_lote.iterrows():
                 datos = {
-                    'Total_Prima_Bruta_CLP':   float(row.get('Total_Prima_Bruta_CLP', 100)),
+                    'Prima_Neta':   float(row.get('Prima_Neta', 100)),
                     'Valor_Cuota':             float(row.get('Valor_Cuota', 10)),
                     'Dias_Entre_Aviso_Cierre': float(row.get('Dias_Entre_Aviso_Cierre', 30)),
                     'Riesgo_Pais':             float(row.get('Riesgo_Pais', 1.2)),
